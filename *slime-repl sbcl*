@@ -1,0 +1,23 @@
+; SLIME 2.24
+CL-USER> (hello-world)
+; in: HELLO-WORLD
+;     (HELLO-WORLD)
+; 
+; caught STYLE-WARNING:
+;   undefined function: COMMON-LISP-USER::HELLO-WORLD
+; 
+; compilation unit finished
+;   Undefined function:
+;     HELLO-WORLD
+;   caught 1 STYLE-WARNING condition
+; compiling (DEFUN HELLO-WORLD ...); Evaluation aborted on #<UNDEFINED-FUNCTION HELLO-WORLD {10020DCC13}>.
+CL-USER> (hello-world)
+hello, world
+NIL
+CL-USER> (load "hello-world.lisp")
+T
+CL-USER> (list 1  2 3)
+(1 2 3)
+CL-USER> (list :a 1 :b 2)
+(:A 1 :B 2)
+CL-USER> 
