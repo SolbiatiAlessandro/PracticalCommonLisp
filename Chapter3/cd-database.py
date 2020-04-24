@@ -33,12 +33,14 @@ def update(where_field, where_value, set_field, set_value):
     map(lambda x: x[set_field] = set_value, select(where(where_field, where_value)))
 """
 
-# TODO: finish
-def update(where_field, where_value, set_field, set_value):
-    map(
-            lambda row: row if where(where_field, where_value)(row) else row
-        )
-
+# FUNCTIONAL
+def update(selector, set_field, set_value):
+    return map(
+            lambda row: \
+                    {field: (value if field != set_field else set_value) for field, value in row.items()} \
+                    if selector(row) else row,
+            record
+            )
 
 
 if __name__ == "__main__":
@@ -48,3 +50,6 @@ if __name__ == "__main__":
     assert select_by_name_iter("aa")[0]['rating'] == 1
     assert select(name_where("aa"))[0]['rating'] == 1
     assert select_generic('name', 'aa')[0]['rating'] == 1
+    assert select(where('name', 'aa'))[0]['rating'] == 1
+    record = update(where('name', 'aa'), 'rating', 3)
+    assert select(where('name', 'aa'))[0]['rating'] == 3
