@@ -1,0 +1,115 @@
+; SLIME 2.24
+CL-USER> (load "cd-database.lisp")
+
+; file: /Users/lessandro/Coding/LISP/PracticalCommonLisp/Chapter3/cd-database.lisp
+; in: DEFUN DUMP-DB
+;     (DEFUN DUMP-DB (DOLIST (CD *DB*) (FORMAT T "~{~a:~10t~a&~}~%" CD)))
+; 
+; caught ERROR:
+;   Required argument is not a symbol: (CD *DB*)
+While evaluating the form starting at line 9, column 0
+  of #P"/Users/lessandro/Coding/LISP/PracticalCommonLisp/Chapter3/cd-database.lisp":
+; 
+; compilation unit aborted
+;   caught 1 fatal ERROR condition
+;   caught 1 ERROR condition
+; compiling (DEFUN PROMPT-READ ...)
+; compiling (DEFUN PROMPT-FOR-CD ...)
+
+; file: /private/var/tmp/slimePj4KqP
+; in: DEFUN PROMPT-FOR-CD
+;     (DEFUN PROMPT-FOR-CD
+;            (MAKE-CD (PROMPT-READ "Title") (PROMPT-READ "Artist")
+;             (PROMPT-READ "Rating") (PROMPT-READ "Ripped")))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PROMPT-FOR-CD
+;         (MAKE-CD (PROMPT-READ "Title") (PROMPT-READ "Artist")
+;                  (PROMPT-READ "Rating") (PROMPT-READ "Ripped"))
+;       (DECLARE (SB-C::TOP-LEVEL-FORM))
+;       (BLOCK PROMPT-FOR-CD))
+; 
+; caught ERROR:
+;   Required argument is not a symbol: (PROMPT-READ "Title")
+; 
+; compilation unit finished
+;   caught 1 ERROR condition
+; compiling (DEFUN PROMPT-READ ...)
+; compiling (DEFUN DUMP-DB ...)
+
+; file: /private/var/tmp/slimeiSLtKW
+; in: DEFUN DUMP-DB
+;     (DEFUN DUMP-DB (DOLIST (CD *DB*) (FORMAT T "~{~a:~10t~a&~}~%" CD)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA DUMP-DB
+;         (DOLIST (CD *DB*) (FORMAT T "~{~a:~10t~a&~}~%" CD))
+;       (DECLARE (SB-C::TOP-LEVEL-FORM))
+;       (BLOCK DUMP-DB))
+; 
+; caught ERROR:
+;   Required argument is not a symbol: (CD *DB*)
+; 
+; compilation unit finished
+;   caught 1 ERROR condition
+; compiling (DEFUN DUMP-DB ...)
+; compiling (DEFUN PROMPT-READ ...)
+; compiling (DEFUN PROMPT-FOR-CD ...)
+
+; file: /private/var/tmp/slimeKVlp1o
+; in: DEFUN PROMPT-FOR-CD
+;     (DEFUN PROMPT-FOR-CD
+;            (MAKE-CD (PROMPT-READ "Title") (PROMPT-READ "Artist")
+;             (PROMPT-READ "Rating") (PROMPT-READ "Ripped")))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PROMPT-FOR-CD
+;         (MAKE-CD (PROMPT-READ "Title") (PROMPT-READ "Artist")
+;                  (PROMPT-READ "Rating") (PROMPT-READ "Ripped"))
+;       (DECLARE (SB-C::TOP-LEVEL-FORM))
+;       (BLOCK PROMPT-FOR-CD))
+; 
+; caught ERROR:
+;   Required argument is not a symbol: (PROMPT-READ "Title")
+; 
+; compilation unit finished
+;   caught 1 ERROR condition
+; compiling (DEFUN PROMPT-FOR-CD ...); Evaluation aborted on #<SB-INT:SIMPLE-PROGRAM-ERROR "~A is not a symbol: ~S" {10025A0B73}>.
+CL-USER> (prompt-for-cd)
+Title: AA
+Artist: BB
+Rating: 2
+Ripped: y
+
+(:TITLE "AA" :ARTIST "BB" :RATING "2" :RIPPED "y")
+; compiling (DEFUN PROMPT-FOR-CD ...)
+; compiling (DEFUN PROMPT-FOR-CD ...)
+CL-USER> (prompt-for-cd)
+Title: ASD
+Artist: DAS
+Rating: WW
+Ripped: 214
+
+(:TITLE "ASD" :ARTIST "DAS" :RATING "WW" :RIPPED 214)
+CL-USER> 
+; No value
+CL-USER> (prompt-for-cd)
+Title: ADS
+Artist: DAS
+Rating: WW
+Ripped: 1dass
+
+(:TITLE "ADS" :ARTIST "DAS" :RATING "WW" :RIPPED 1)
+; compiling (DEFUN PROMPT-FOR-CD ...)
+CL-USER> 
+
+; No value
+CL-USER> (prompt-for-cd)
+Title: ADS
+Artist: das
+
+Ripped [y/n] (y or n) n
+Rating: 1242424
+
+(:TITLE "ADS" :ARTIST "das" :RATING NIL :RIPPED 1242424)
+CL-USER> 

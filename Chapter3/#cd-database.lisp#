@@ -51,3 +51,28 @@
 
 (defun artist-selector (artist)
   #'(lambda (cd) (equal (getf cd :artist) artist)))
+
+(defun where (&key title artist rating (ripped nil ripped-p))
+  ;; returns a closure, can be used with select
+  ;; > (select (where :artist "asf"))
+  ;; or used with funcall
+  ;; > (funcall (where :artist "asf") (list :TITLE "asd"))
+  #'(lambda (cd)
+      (and
+       (if title (equal (getf cd :title) title) t)
+       (if artist (equal (getf cd :artist) artist) t)
+       (if rating (equal (getf cd :rating) rating) t)
+       (if ripped-p (equal (getf cd :ripped) ripped) t))))
+
+(defun update (selector-fn &key title artist rating (ripped nil ripped-p))
+  (setf *db*
+	(mapcar
+	 #'(lambda (row)
+	     (when (funcall selector-fn row)
+	       (if title (setf (getf row :title) title))
+	       (if artist   (setf (getf row :artist) artist))
+               (if rating   (setf (getf row :rating) rating))
+               (if ripped-p (setf (getf row :ripped) ripped))
+	       )
+	     row
+	     ) *db*)))
